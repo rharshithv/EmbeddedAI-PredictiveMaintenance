@@ -85,6 +85,20 @@ This analysis is exploratory: individual fault labels have not been assigned, an
 
 The raw dataset archives and extracted files are excluded from Git. Follow the dataset source's terms and instructions when obtaining the data.
 
+## Wokwi ESP32 Simulation
+
+The ESP32 simulation demonstrates vibration monitoring, consecutive-fault detection, and recovery.
+
+![Wokwi ESP32 predictive maintenance simulation](wokwi_simulation.png)
+
+The simulation demonstrates:
+
+- **Warning:** Two consecutive abnormal vibration windows.
+- **Fault detection:** Three consecutive abnormal windows trigger an alert to inspect the motor.
+- **Recovery:** A normal vibration window resets the fault count and returns the status to healthy.
+
+**Note:** This is a Wokwi simulation, not a physical hardware test.
+
 ## Project Structure
 
 | File | Purpose |
