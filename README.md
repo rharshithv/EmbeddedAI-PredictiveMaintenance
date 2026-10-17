@@ -99,6 +99,46 @@ The simulation demonstrates:
 
 **Note:** This is a Wokwi simulation, not a physical hardware test.
 
+## Reproducing the Results
+
+### 1. Set up the Python environment
+
+Python and the dependencies listed in `requirements.txt` are required.
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+### 2. Run the automated tests
+
+```bash
+python -m pytest -v
+```
+
+### 3. Verify Python/C agreement
+
+```bash
+python test_python_c_agreement.py
+```
+
+Expected result: 400 matching predictions and zero mismatches on the synthetic dataset.
+
+### 4. Compare the saved models
+
+```bash
+python verify_final_model_comparison.py
+```
+
+This compares the three-feature evaluation model and one-feature deployment model on the same held-out test split. The recorded result is 81.25% accuracy for each model, with matching predictions on all 80 test samples.
+
+### 5. Review the benchmark report
+
+Open `benchmark_report.md` for the dataset split, model metrics, threshold experiments, simulation results, and limitations.
+
+**Note:** Run these commands from the repository root. The dataset and saved model files must be present. The results are based on synthetic data and do not establish real-world motor fault-detection performance.
+
 ## Project Structure
 
 | File | Purpose |
