@@ -133,7 +133,21 @@ python verify_final_model_comparison.py
 
 This compares the three-feature evaluation model and one-feature deployment model on the same held-out test split. The recorded result is 81.25% accuracy for each model, with matching predictions on all 80 test samples.
 
-### 5. Review the benchmark report
+### 5. Reproduce feature selection
+
+Run the feature-selection experiment to compare different feature sets and decision-tree depths using validation metrics:
+
+```bash
+python compare_feature_models.py
+```
+
+The experiment selects a model using validation abnormal-class F1, breaking ties by fewer tree nodes and then higher validation accuracy. It evaluates the selected model on the held-out test set and saves the deployment model to `motor_fault_feature_model.joblib`.
+
+The recorded selection was a depth-2 decision tree using `peak_amplitude` only, with 78.75% validation accuracy and 81.25% held-out test accuracy.
+
+**Note:** This experiment uses synthetic data. Its results do not establish real-world motor fault-detection performance.
+
+### 6. Review the benchmark report
 
 Open `benchmark_report.md` for the dataset split, model metrics, threshold experiments, simulation results, and limitations.
 
