@@ -2,41 +2,42 @@
 
 ## Project Overview
 
-This project explores a simulation-first approach to AI-based predictive maintenance using embedded systems. A machine-learning classifier analyses simulated motor vibration features to classify motor conditions as normal or abnormal.
+This project explores a simulation-first approach to AI-based predictive maintenance using embedded systems. A lightweight machine-learning classifier analyses motor vibration features to classify motor conditions as normal or abnormal.
 
-The project combines Python-based model development, C-based classification, and ESP32 simulation using Wokwi.
+The project combines Python-based model development, C-based classification, and ESP32 simulation using Wokwi. It also includes exploratory analysis of the NASA IMS bearing vibration dataset.
 
 ## Objectives
 
-- Generate a synthetic motor vibration dataset.
-- Train and evaluate a lightweight decision-tree classifier.
+- Generate and evaluate a synthetic motor vibration dataset.
+- Train a lightweight decision-tree classifier.
 - Implement a compatible classification rule in C.
-- Test the classifier using boundary cases and Python/C comparisons.
-- Simulate vibration monitoring and fault alerts on an ESP32 in Wokwi.
+- Verify Python/C prediction agreement and decision-boundary behaviour.
+- Simulate vibration monitoring and fault alerts on an ESP32 using Wokwi.
+- Explore real-world vibration data and document data-quality limitations.
 
 ## Technologies Used
 
-- Python
-- NumPy and Pandas
+- Python, NumPy, Pandas
 - scikit-learn
 - C
 - VS Code
 - ESP32 simulation with Wokwi
+- Git and GitHub
 
 ## Machine Learning Results
 
-The final evaluation model achieved **81.25% test accuracy** on 80 held-out samples from a synthetic dataset.
+The three-feature evaluation model achieved **81.25% test accuracy** on 80 held-out samples from a synthetic dataset.
 
 - Validation accuracy: 78.75%
 - Abnormal recall: 80%
 - Normal recall: 82%
 - Model: Decision tree with maximum depth 2
 
-These metrics apply to the three-feature evaluation model and the synthetic dataset.
+These metrics apply to the three-feature evaluation model and the synthetic dataset, not to real motor measurements.
 
-## Embedded Implementation
+### Embedded Classifier Verification
 
-A separate one-feature decision-tree model uses `peak_amplitude`. Its C implementation was tested against the Python model:
+A separate one-feature decision-tree model uses `peak_amplitude`. Its C implementation was compared against the corresponding Python model.
 
 - Dataset predictions compared: 400
 - Matching predictions: 400
@@ -44,37 +45,75 @@ A separate one-feature decision-tree model uses `peak_amplitude`. Its C implemen
 - Additional boundary inputs compared: 10
 - Boundary mismatches: 0
 
-## Simulation
+These results establish prediction agreement for the tested inputs; they do not establish real-world fault-detection accuracy.
 
-The ESP32 simulation in Wokwi generates simulated vibration signals and demonstrates normal/abnormal classification, consecutive-fault detection, and recovery behavior.
+### Repeated-Split Evaluation
 
-**[Run the simulation on Wokwi](https://wokwi.com/projects/478114371222432769)**
+Across five random train/test splits of the same synthetic dataset, the one-feature deployment model achieved:
 
-Simulation timings are not equivalent to measurements on physical ESP32 hardware.
+- Mean accuracy: 81.25%
+- Accuracy range: 77.50%–86.25%
+
+These are exploratory repeated-split results on the same dataset, not validation across independent motors or datasets.
+
+## ESP32 Simulation
+
+The Wokwi simulation demonstrates:
+
+- Simulated vibration signal generation
+- Normal/abnormal classification
+- Consecutive-fault detection
+- Recovery behaviour
+
+**[Run the ESP32 simulation on Wokwi](https://wokwi.com/projects/478114371222432769)**
+
+Simulation behaviour and timing are not equivalent to measurements on physical ESP32 hardware.
+
+## NASA IMS Dataset Investigation
+
+The project includes exploratory analysis of 984 timestamped files from the second test set of the NASA IMS bearing dataset. RMS, standard deviation, and peak amplitude were calculated for the first sensor channel.
+
+Two files contained near-zero vibration measurements and were flagged for further investigation. The cause has not been established.
+
+This analysis is exploratory: individual fault labels have not been assigned, and no real-world fault-detection accuracy is claimed.
+
+- `analyze_nasa_data.py` — extracts vibration features from the downloaded dataset.
+- `plot_nasa_features.py` — plots feature trends over time.
+- `nasa_data_quality_report.md` — documents the findings and limitations.
+
+**Dataset source:** [NASA IMS Bearing Dataset](https://data.nasa.gov/dataset/ims-bearings)
+
+The raw dataset archives and extracted files are excluded from Git. Follow the dataset source's terms and instructions when obtaining the data.
+
+## Project Structure
+
+| File | Purpose |
+|---|---|
+| `evaluate_final.py` | Evaluates the three-feature model |
+| `motor_classifier.c` | C classification implementation |
+| `motor_fault_feature_model.joblib` | One-feature deployment model |
+| `motor_fault_feature_list.json` | Deployment feature configuration |
+| `test_python_c_agreement.py` | Python/C prediction agreement tests |
+| `test_noise_robustness.py` | Noise robustness tests |
+| `benchmark_report.md` | Model evaluation and benchmark results |
+| `wokwi_test_results.md` | ESP32 simulation test results |
+| `analyze_nasa_data.py` | NASA dataset feature extraction |
+| `plot_nasa_features.py` | NASA feature trend plots |
+| `nasa_data_quality_report.md` | NASA data-quality findings |
 
 ## Limitations
 
-- The dataset is synthetic, not collected from a real motor.
-- Real-world accuracy has not been established.
+- The primary training and evaluation dataset is synthetic.
+- Real-world predictive-maintenance accuracy has not been established.
+- The NASA analysis does not currently establish fault labels or validated fault-detection performance.
 - Wokwi results do not establish physical hardware performance.
+- Memory use, inference latency, and power consumption on physical hardware have not been benchmarked.
 - The project is a prototype and requires further validation before practical deployment.
 
 ## Future Work
 
-- Test with real motor vibration data.
-- Evaluate false alarms and missed faults under realistic operating conditions.
-- Deploy and measure the classifier on physical ESP32 hardware.
-- Evaluate memory use, inference latency, and power consumption.
-
-## Project Reports
-
-- `benchmark_report.md` — model evaluation, implementation checks, and benchmarking.
-- `wokwi_test_results.md` — ESP32 simulation test results.
-
-## ESP32 Simulation
-
-Explore the working ESP32 predictive maintenance simulation in Wokwi:
-
-**[Run the simulation on Wokwi](https://wokwi.com/projects/478114371222432769)**
-
-The simulation demonstrates vibration signal generation, normal/abnormal classification, consecutive fault detection, and recovery behavior.
+- Validate the classifier using appropriately labelled real motor vibration data.
+- Investigate the NASA dataset's recording conditions and unusual measurements.
+- Evaluate false alarms and missed faults on independent data.
+- Deploy on physical ESP32 hardware.
+- Measure memory use, inference latency, and power consumption.
