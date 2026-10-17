@@ -19,7 +19,11 @@ Two files had RMS values below 0.01:
 | 2004.02.19.06.12.39 | 0.002103 | 0.005 |
 | 2004.02.19.06.22.39 | 0.001533 | 0.005 |
 
-These two files contain near-zero values across the inspected sensor channels. They are flagged for further investigation.
+Both files were checked against their original recordings. The raw data also contains very low values across all four inspected sensor channels, confirming that the low values are present in the source recordings and are not solely a CSV-export artifact.
+
+For the first channel, RMS dropped from 0.483835 at 06:02:39 to 0.002103 at 06:12:39, then to 0.001533 at 06:22:39 on February 19, 2004. This represents an abrupt change in recorded vibration amplitude.
+
+The two files are flagged for further investigation.
 
 ## Interpretation and limitations
 
