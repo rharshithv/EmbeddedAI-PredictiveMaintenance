@@ -117,3 +117,11 @@ The raw dataset archives and extracted files are excluded from Git. Follow the d
 - Evaluate false alarms and missed faults on independent data.
 - Deploy on physical ESP32 hardware.
 - Measure memory use, inference latency, and power consumption.
+
+## System Architecture
+
+The diagram below shows the workflow from synthetic vibration data and Python model development to C classification and ESP32 simulation.
+
+![System architecture diagram](architecture.png)
+
+See [architecture.md](architecture.md) for the editable Mermaid source.
