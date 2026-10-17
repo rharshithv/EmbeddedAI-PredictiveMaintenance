@@ -286,6 +286,23 @@ The fixed threshold detected five additional abnormal samples but produced five 
 
 **Limitation:** These results come from a synthetic dataset and a validation set. They do not establish performance on real motor hardware.
 
+## 15. Exploratory Threshold Sensitivity on the Held-Out Test Set
+
+An additional experiment compared six fixed peak-amplitude thresholds on the same 80-sample held-out synthetic test set. The purpose was to examine the trade-off between abnormal-condition detection and false alarms.
+
+| Peak-amplitude threshold | Accuracy | Abnormal recall | Missed faults | False alarms |
+|---:|---:|---:|---:|---:|
+| 1.20 | 66.25% | 97.50% | 1 | 26 |
+| 1.25 | 67.50% | 97.50% | 1 | 25 |
+| 1.30 | 72.50% | 92.50% | 3 | 19 |
+| 1.35 | 75.00% | 87.50% | 5 | 15 |
+| 1.40 | 78.75% | 85.00% | 6 | 11 |
+| 1.4424 | 81.25% | 80.00% | 8 | 7 |
+
+Lower thresholds detected more abnormal samples but produced more false alarms. The threshold of 1.20 missed one abnormal sample but incorrectly flagged 26 normal samples. The threshold of 1.4424 achieved the highest accuracy in this comparison but missed eight abnormal samples.
+
+**Limitation:** These results were obtained by comparing thresholds on the held-out test set. Therefore, this experiment is exploratory and must not be treated as an independent final evaluation of a newly selected threshold. The official model result remains unchanged. Any future threshold selection should use training and validation data, followed by evaluation on a fresh, untouched test set.
+
 ## Conclusion
 
 This project developed and evaluated a simulation-first predictive-maintenance classifier using synthetic motor-vibration features. The selected lightweight Decision Tree achieved 81.25% accuracy on the held-out synthetic test set. A simplified one-feature deployment model reproduced the three-feature model's predictions on all 80 test samples, and the Python and C implementations agreed on all 400 synthetic dataset samples.
