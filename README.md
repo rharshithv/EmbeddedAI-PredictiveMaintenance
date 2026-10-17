@@ -48,6 +48,8 @@ A separate one-feature decision-tree model uses `peak_amplitude`. Its C implemen
 
 The ESP32 simulation in Wokwi generates simulated vibration signals and demonstrates normal/abnormal classification, consecutive-fault detection, and recovery behavior.
 
+**[Run the simulation on Wokwi](https://wokwi.com/projects/478114371222432769)**
+
 Simulation timings are not equivalent to measurements on physical ESP32 hardware.
 
 ## Limitations
@@ -68,3 +70,11 @@ Simulation timings are not equivalent to measurements on physical ESP32 hardware
 
 - `benchmark_report.md` — model evaluation, implementation checks, and benchmarking.
 - `wokwi_test_results.md` — ESP32 simulation test results.
+
+## ESP32 Simulation
+
+Explore the working ESP32 predictive maintenance simulation in Wokwi:
+
+**[Run the simulation on Wokwi](https://wokwi.com/projects/478114371222432769)**
+
+The simulation demonstrates vibration signal generation, normal/abnormal classification, consecutive fault detection, and recovery behavior.
