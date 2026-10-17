@@ -13,3 +13,17 @@ motor_classifier_v2
 motor_model_test
 test_classifier
 *.o
+
+# NASA IMS raw data and downloaded archives
+data/nasa_bearings/*.zip
+data/nasa_bearings/*.7z
+data/nasa_bearings/*.rar
+data/nasa_bearings/extracted/
+
+# Local generated datasets and analysis outputs
+data/nasa_bearings/nasa_vibration_features.csv
+data/nasa_bearings/nasa_feature_trends.png
+
+# Python cache
+__pycache__/
+*.py[cod]
