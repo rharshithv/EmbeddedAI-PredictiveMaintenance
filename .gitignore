@@ -1,0 +1,15 @@
+# Python environment and cache
+.venv/
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
+
+# Compiled C programs and object files
+motor_classifier
+motor_classifier_final
+motor_classifier_v2
+motor_model_test
+test_classifier
+*.o
