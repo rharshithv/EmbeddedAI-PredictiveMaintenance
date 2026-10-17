@@ -188,6 +188,8 @@ These are simulator measurements, not physical ESP32
 benchmarks. The generated signals are synthetic and do not
 validate performance on a real motor.
 
+A subsequent run of the active Wokwi monitoring sketch verified the classifier boundary tests (5/5 passed), normal-signal handling, three-consecutive-fault detection, and recovery. Windows 1–3 were classified as HEALTHY with measured peaks of 1.200. Windows 4–5 reached WARNING after consecutive abnormal windows, and Window 6 returned to HEALTHY with the fault counter reset. Windows 7–9 triggered FAULT DETECTED on the third consecutive abnormal window, followed by recovery to HEALTHY at Window 10. The measured processing time was approximately 69.96–70.17 ms per 500-sample window in Wokwi. These measurements are simulator results, not physical ESP32 performance measurements.
+
 ## 12. NASA IMS Bearing Dataset Investigation
 
 The NASA IMS Bearing Dataset's second test set was explored as an additional source of real vibration recordings. A total of 984 timestamped files were processed, and RMS, standard deviation, and peak amplitude were calculated from the first sensor channel.
