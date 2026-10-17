@@ -279,6 +279,39 @@ Results:
 - Mismatches: 0
 - Result: PASS
 
+cat >> benchmark_report.md <<'EOF'
+
+### Deployment Model Comparison and Split Sensitivity
+
+The three-feature evaluation model and one-feature deployment model
+were compared on the same official held-out test split.
+
+- Official test samples: 80
+- Three-feature evaluation model accuracy: 81.25%
+- One-feature deployment model accuracy: 81.25%
+- Matching predictions: 80/80
+- Mismatches: 0
+- Prediction agreement: 100%
+
+The deployment model was also evaluated on five separate stratified
+80/20 train/test splits using random seeds 10, 20, 30, 42, and 50.
+
+| Random seed | Test accuracy |
+|---:|---:|
+| 10 | 86.25% |
+| 20 | 82.50% |
+| 30 | 78.75% |
+| 42 | 81.25% |
+| 50 | 77.50% |
+| **Mean** | **81.25%** |
+
+Accuracy ranged from 77.50% to 86.25% across these splits. These
+results show sensitivity to the selected test samples. All evaluations
+use the same synthetic dataset and do not establish performance on
+real motor vibration data.
+
+The five-split results are additional exploratory evaluations, not
+independent validation on five different datasets.
 Conclusion:
 The Python deployment model and C classifier agreed on
 all ten selected boundary and representative inputs.
