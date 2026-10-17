@@ -311,6 +311,23 @@ real motor vibration data.
 The five-split results are additional exploratory evaluations, not
 independent validation on five different datasets.
 
+## 15. Validation Experiment: Decision Tree vs Fixed Peak Threshold
+
+Both methods were evaluated on the same 80-sample validation set from the synthetic motor vibration dataset.
+
+| Metric | Decision Tree | Fixed threshold (1.30) |
+|---|---:|---:|
+| Accuracy | 78.75% | 78.75% |
+| Abnormal recall | 77.50% | 90.00% |
+| Missed faults | 9 | 4 |
+| False alarms | 8 | 13 |
+
+The fixed threshold detected five additional abnormal samples but produced five additional false alarms. Both methods achieved the same overall accuracy of 78.75%.
+
+**Interpretation:** The fixed threshold prioritizes detecting abnormal cases, whereas the Decision Tree produces fewer false alarms. The preferred approach depends on the relative consequences of missed faults and false alarms.
+
+**Limitation:** These results come from a synthetic dataset and a validation set. They do not establish performance on real motor hardware.
+
 ### Conclusion
 
 The Python deployment model and C classifier agreed on all ten selected boundary and representative inputs. Together with the 400-sample dataset comparison, this supports implementation consistency for the tested inputs. It does not establish performance on real motor data.

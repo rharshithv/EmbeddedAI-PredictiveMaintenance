@@ -125,3 +125,25 @@ Note:
 This verifies the configured simulation settings. It does
 not establish real-hardware performance or validate the
 classifier on real motor measurements.
+
+## Active Sketch Configuration (Verified from Source)
+
+The current `wokwi_fault_alert.ino` sketch uses:
+
+- Samples per window: 100
+- Sample rate: 1000 Hz
+- Base signal frequency: 25 Hz
+- Added signal component frequency: 137 Hz
+- Added component amplitude: 0.08
+- Classification threshold: 1.442362666
+- Consecutive abnormal windows required for a fault alert: 3
+- Monitoring sequence: three normal windows followed by three abnormal windows
+- Status indicators: green for healthy, yellow for warning, red for fault detected
+
+The sketch generates a deterministic simulated vibration signal and calculates
+its peak absolute amplitude. It does not read a physical vibration sensor.
+
+This configuration was verified by inspecting the source code. Historical
+measurements documented in other test sections may refer to different
+simulation configurations and should not be treated as measurements from
+this exact configuration without rerunning those tests.
