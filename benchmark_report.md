@@ -279,8 +279,6 @@ Results:
 - Mismatches: 0
 - Result: PASS
 
-cat >> benchmark_report.md <<'EOF'
-
 ### Deployment Model Comparison and Split Sensitivity
 
 The three-feature evaluation model and one-feature deployment model
@@ -312,9 +310,7 @@ real motor vibration data.
 
 The five-split results are additional exploratory evaluations, not
 independent validation on five different datasets.
-Conclusion:
-The Python deployment model and C classifier agreed on
-all ten selected boundary and representative inputs.
-Together with the 400-sample dataset comparison, this
-supports implementation consistency for the tested inputs.
-It does not establish performance on real motor data.
+
+### Conclusion
+
+The Python deployment model and C classifier agreed on all ten selected boundary and representative inputs. Together with the 400-sample dataset comparison, this supports implementation consistency for the tested inputs. It does not establish performance on real motor data.
