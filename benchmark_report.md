@@ -188,9 +188,25 @@ These are simulator measurements, not physical ESP32
 benchmarks. The generated signals are synthetic and do not
 validate performance on a real motor.
 
-## 12. Final Classifier Verification
+## 12. NASA IMS Bearing Dataset Investigation
+
+The NASA IMS Bearing Dataset's second test set was explored as an additional source of real vibration recordings. A total of 984 timestamped files were processed, and RMS, standard deviation, and peak amplitude were calculated from the first sensor channel.
+
+Two recordings, timestamped `2004.02.19.06.12.39` and `2004.02.19.06.22.39`, contained near-zero measurements. Inspection of the original recordings confirmed that these low values were present in the source data across all four inspected sensor channels.
+
+For the first channel, RMS decreased from approximately 0.483835 at 06:02:39 to 0.002103 at 06:12:39 and 0.001533 at 06:22:39 on February 19, 2004. These records were flagged for further investigation because the cause of the abrupt change has not been established.
+
+This was an exploratory data-quality investigation. No fault labels were assigned to individual files, and no fault-detection accuracy was calculated from this dataset. The observed changes alone do not establish the onset of a bearing fault.
+
+Further work should examine the dataset documentation, acquisition process, additional sensor channels, and temporal features before drawing conclusions.
+
+See `nasa_data_quality_report.md` for the detailed findings.
+
+## 13. Final Classifier Verification
 
 ### Python/C Agreement Test
+
+The Python deployment model and compiled C classifier were compared across the 400 samples in the synthetic dataset.
 
 - Total dataset samples: 400
 - Matching predictions: 400
@@ -198,7 +214,11 @@ validate performance on a real motor.
 - Python/C agreement: 100.00%
 - Result: PASS
 
+This confirms implementation consistency on the tested dataset. It does not establish accuracy on real motor data.
+
 ### Boundary Tests
+
+Five boundary values were tested against the expected classification results.
 
 | Peak Amplitude | Expected Result | Actual Result |
 |---:|---|---|
@@ -211,78 +231,19 @@ validate performance on a real motor.
 - Boundary tests passed: 5/5
 - Result: PASS
 
-Conclusion:
-The Python and C classifiers produced identical predictions
-for all 400 tested samples. All five boundary tests also
-matched their expected predictions. These results verify
-implementation consistency on the tested inputs, but do not
-establish accuracy on real motor data or prove deployment
-performance on a physical microcontroller.
+Ten additional peak-amplitude inputs were tested against the Python deployment model and compiled C classifier.
 
-## 13. Final Model Evaluation
+Test inputs: 1.30, 1.4420, 1.442362666, 1.4430, 1.50, 1.5328, 1.60, 1.75, 1.80, 2.00.
 
-### Dataset Split
-
-- Training samples: 240
-- Validation samples: 80
-- Final test samples: 80
-
-### Model Selection
-
-- Selected decision tree depth: 2
-- Validation accuracy: 78.75%
-- Tree nodes: 7
-
-### Final Test Results
-
-- Test accuracy: 81.25%
-- Abnormal precision: 82%
-- Abnormal recall: 80%
-- Abnormal F1-score: 81%
-- Normal precision: 80%
-- Normal recall: 82%
-- Normal F1-score: 81%
-
-### Confusion Matrix
-
-Label order: abnormal, normal
-
-| Actual / Predicted | Abnormal | Normal |
-|---|---:|---:|
-| Abnormal | 32 | 8 |
-| Normal | 7 | 33 |
-
-### Interpretation
-
-The model correctly classified 65 of the 80 test samples.
-It detected 32 of 40 abnormal samples and missed 8.
-It correctly identified 33 of 40 normal samples and
-incorrectly flagged 7 as abnormal.
-
-The final test accuracy was 81.25%. These results apply
-to the held-out synthetic dataset and do not establish
-performance on real motor vibration measurements.
-
-## 14. Direct Python/C Boundary Verification
-
-Ten peak-amplitude inputs were tested against the Python
-deployment model and the compiled C classifier.
-
-Test inputs:
-1.30, 1.4420, 1.442362666, 1.4430, 1.50,
-1.5328, 1.60, 1.75, 1.80, 2.00
-
-Results:
 - Python predictions: 10
 - C predictions: 10
 - Matching predictions: 10
 - Mismatches: 0
 - Result: PASS
 
-### Deployment Model Comparison and Split Sensitivity
+### Deployment Model Comparison
 
-The three-feature evaluation model and one-feature deployment model
-were compared on the same official held-out test split.
+The three-feature evaluation model and one-feature deployment model were compared on the same official held-out test split.
 
 - Official test samples: 80
 - Three-feature evaluation model accuracy: 81.25%
@@ -291,8 +252,9 @@ were compared on the same official held-out test split.
 - Mismatches: 0
 - Prediction agreement: 100%
 
-The deployment model was also evaluated on five separate stratified
-80/20 train/test splits using random seeds 10, 20, 30, 42, and 50.
+### Split Sensitivity
+
+The one-feature deployment model was evaluated on five stratified 80/20 train/test splits of the same synthetic dataset.
 
 | Random seed | Test accuracy |
 |---:|---:|
@@ -303,15 +265,9 @@ The deployment model was also evaluated on five separate stratified
 | 50 | 77.50% |
 | **Mean** | **81.25%** |
 
-Accuracy ranged from 77.50% to 86.25% across these splits. These
-results show sensitivity to the selected test samples. All evaluations
-use the same synthetic dataset and do not establish performance on
-real motor vibration data.
+Accuracy ranged from 77.50% to 86.25%. These are exploratory evaluations on the same synthetic dataset, not independent validation on five different datasets. Results show sensitivity to the selected test samples and do not establish performance on real motor vibration data.
 
-The five-split results are additional exploratory evaluations, not
-independent validation on five different datasets.
-
-## 15. Validation Experiment: Decision Tree vs Fixed Peak Threshold
+## 14. Validation Experiment: Decision Tree vs Fixed Peak Threshold
 
 Both methods were evaluated on the same 80-sample validation set from the synthetic motor vibration dataset.
 
@@ -328,6 +284,10 @@ The fixed threshold detected five additional abnormal samples but produced five 
 
 **Limitation:** These results come from a synthetic dataset and a validation set. They do not establish performance on real motor hardware.
 
-### Conclusion
+## Conclusion
 
-The Python deployment model and C classifier agreed on all ten selected boundary and representative inputs. Together with the 400-sample dataset comparison, this supports implementation consistency for the tested inputs. It does not establish performance on real motor data.
+This project developed and evaluated a simulation-first predictive-maintenance classifier using synthetic motor-vibration features. The selected lightweight Decision Tree achieved 81.25% accuracy on the held-out synthetic test set. A simplified one-feature deployment model reproduced the three-feature model's predictions on all 80 test samples, and the Python and C implementations agreed on all 400 synthetic dataset samples.
+
+A separate validation experiment showed that a fixed peak-amplitude threshold of 1.30 achieved the same accuracy as the Decision Tree while detecting more abnormal samples at the cost of additional false alarms. The Wokwi ESP32 simulation demonstrated the intended monitoring and fault-alert logic using generated signals. An exploratory analysis of 984 NASA IMS bearing recordings also identified two near-zero records requiring further investigation.
+
+These results demonstrate the implementation and testing of a simulation-first prototype. Because the classifier was evaluated using synthetic data and no physical motor or embedded-board deployment was validated, its real-world fault-detection performance remains unestablished. Further work should focus on real sensor measurements, improved validation, and target-specific embedded testing.
