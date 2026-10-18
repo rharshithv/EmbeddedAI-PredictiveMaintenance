@@ -326,6 +326,24 @@ The firmware was compiled successfully using Arduino CLI with ESP32 Arduino Core
 
 `arduino-cli compile --fqbn esp32:esp32:esp32 --build-path /tmp/esp32-build --warnings all /tmp/esp32-sketch`
 
+## 17. Host-Side C Classifier Timing Experiment
+
+The threshold-based C classifier was benchmarked on the development Mac using an optimized Clang build and a monotonic wall-clock timer.
+
+| Metric | Result |
+|---|---:|
+| Iterations | 10,000,000 |
+| Total measured wall time | 0.021511 seconds |
+| Reported average per call | 2.15 ns |
+| Abnormal classifications | 5,000,000 |
+| Platform | macOS host |
+| Compiler optimization | `-O2` |
+
+**Interpretation:** This experiment provides an initial host-side timing result for the simple threshold classifier.
+
+**Limitation:** The reported average is specific to the benchmark harness and host environment. It is not a definitive isolated function-latency measurement and must not be presented as ESP32 inference latency. ESP32 timing remains unmeasured.
+
+
 ## Conclusion
 
 This project developed and evaluated a simulation-first predictive-maintenance classifier using synthetic motor-vibration features. The selected lightweight Decision Tree achieved 81.25% accuracy on the held-out synthetic test set. A simplified one-feature deployment model reproduced the three-feature model's predictions on all 80 test samples, and the Python and C implementations agreed on all 400 synthetic dataset samples.
