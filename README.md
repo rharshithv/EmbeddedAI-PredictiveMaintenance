@@ -199,3 +199,18 @@ The diagram below shows the workflow from synthetic vibration data and Python mo
 ![System architecture diagram](architecture.png)
 
 See [architecture.md](architecture.md) for the editable Mermaid source.
+
+## ESP32 Firmware Resource Measurements
+
+The firmware was successfully compiled using Arduino CLI with ESP32 Arduino Core 3.3.12.
+
+| Metric | Result |
+|---|---:|
+| Program storage used | 274,444 bytes (20%) |
+| Static/global RAM used | 22,548 bytes (6%) |
+| RAM remaining according to compiler | 305,132 bytes |
+| Build status | Successful |
+
+**Build target:** `esp32:esp32:esp32` (ESP32 Dev Module).
+
+These are compiler-reported resource measurements for the simulated vibration-monitoring firmware. The firmware generates synthetic samples rather than reading a physical vibration sensor. The exact Wokwi board configuration and physical hardware performance have not yet been verified.

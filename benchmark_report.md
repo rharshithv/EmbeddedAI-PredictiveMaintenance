@@ -303,6 +303,29 @@ Lower thresholds detected more abnormal samples but produced more false alarms. 
 
 **Limitation:** These results were obtained by comparing thresholds on the held-out test set. Therefore, this experiment is exploratory and must not be treated as an independent final evaluation of a newly selected threshold. The official model result remains unchanged. Any future threshold selection should use training and validation data, followed by evaluation on a fresh, untouched test set.
 
+## 16. ESP32 Firmware Resource Measurements
+
+The firmware was compiled successfully using Arduino CLI with ESP32 Arduino Core version 3.3.12.
+
+**Build target:** `esp32:esp32:esp32` (ESP32 Dev Module)
+
+| Metric | Result |
+|---|---:|
+| Program storage used | 274,444 bytes (20%) |
+| Maximum program storage | 1,310,720 bytes |
+| Static/global RAM used | 22,548 bytes (6%) |
+| Maximum RAM reported | 327,680 bytes |
+| RAM remaining according to compiler | 305,132 bytes |
+| Compilation status | Successful |
+
+**Interpretation:** The firmware fits within the selected target's reported Flash and RAM limits. These figures are compiler-reported resource measurements, not runtime free-memory measurements.
+
+**Limitation:** The firmware generates simulated vibration samples rather than reading a physical vibration sensor. The exact Wokwi board configuration has not yet been verified, and physical hardware performance has not been measured.
+
+**Compilation command:**
+
+`arduino-cli compile --fqbn esp32:esp32:esp32 --build-path /tmp/esp32-build --warnings all /tmp/esp32-sketch`
+
 ## Conclusion
 
 This project developed and evaluated a simulation-first predictive-maintenance classifier using synthetic motor-vibration features. The selected lightweight Decision Tree achieved 81.25% accuracy on the held-out synthetic test set. A simplified one-feature deployment model reproduced the three-feature model's predictions on all 80 test samples, and the Python and C implementations agreed on all 400 synthetic dataset samples.

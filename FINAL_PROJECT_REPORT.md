@@ -188,6 +188,30 @@ The following extensions would strengthen the project:
 7. Test the complete processing pipeline using actual sensor data.
 8. Document reproducible setup, execution, and evaluation procedures.
 
+## 12. ESP32 Firmware Resource Measurements
+
+The firmware was successfully compiled using Arduino CLI with ESP32 Arduino Core version 3.3.12.
+
+**Build target:** `esp32:esp32:esp32` (ESP32 Dev Module)
+
+| Metric | Result |
+|---|---:|
+| Program storage used | 274,444 bytes (20%) |
+| Maximum program storage | 1,310,720 bytes |
+| Static/global RAM used | 22,548 bytes (6%) |
+| Maximum RAM reported | 327,680 bytes |
+| RAM remaining according to compiler | 305,132 bytes |
+| Compilation status | Successful |
+
+**Interpretation:** The firmware fits within the selected target's reported Flash and RAM limits. These are compiler-reported resource figures, not runtime free-memory measurements.
+
+**Limitation:** The firmware generates simulated vibration samples rather than reading a physical vibration sensor. The exact Wokwi board configuration has not yet been verified.
+
+**Compilation command:**
+
+`arduino-cli compile --fqbn esp32:esp32:esp32 --build-path /tmp/esp32-build --warnings all /tmp/esp32-sketch`
+
+
 ## Conclusion
 
 This project developed a simulation-first predictive-maintenance prototype using synthetic motor-vibration features, a lightweight Decision Tree, a C classification rule, and an ESP32 monitoring simulation.
