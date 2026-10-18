@@ -27,3 +27,35 @@ data/nasa_bearings/nasa_feature_trends.png
 # Python cache
 __pycache__/
 *.py[cod]
+
+# Local experimental scripts
+benchmark_report.py
+check_model_features.py
+compare_final_python_c.py
+compare_model_validation.py
+compare_models.py
+compare_python_c.py
+compare_python_c_v2.py
+compare_simulation_features.py
+evaluate_v2.py
+generate_data.py
+motor_model_test.c
+predict_motor.py
+test_classifier.c
+test_decision_boundary.py
+test_motor_model_c.py
+test_noisy_simulation.py
+test_thresholds.py
+train_model.py
+tune_tree_v2.py
+validate_thresholds.py
+verify_tree.py
+
+# Local experimental outputs
+motor_fault_model.joblib
+motor_fault_tree.joblib
+motor_fault_tree_tuned.joblib
+motor_fault_tree_v2.joblib
+motor_vibration_dataset.csv
+motor_vibration_plot.png
+motor_vibration_plot_v2.png
