@@ -214,3 +214,11 @@ The firmware was successfully compiled using Arduino CLI with ESP32 Arduino Core
 **Build target:** `esp32:esp32:esp32` (ESP32 Dev Module).
 
 These are compiler-reported resource measurements for the simulated vibration-monitoring firmware. The firmware generates synthetic samples rather than reading a physical vibration sensor. The exact Wokwi board configuration and physical hardware performance have not yet been verified.
+
+## Wokwi Simulation
+
+The ESP32 firmware was tested in the Wokwi simulator using simulated vibration samples. The Serial Monitor displays extracted vibration features and the resulting motor-condition classification.
+
+![Wokwi ESP32 predictive maintenance simulation](screenshots/wokwi_simulation_verified.png)
+
+The simulation produced four normal classifications and two abnormal classifications across six test windows. These results demonstrate the threshold-based classifier's expected behavior on the generated samples, not accuracy on physical motor data.
