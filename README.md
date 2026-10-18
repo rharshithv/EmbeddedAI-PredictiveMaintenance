@@ -6,6 +6,12 @@ This project explores a simulation-first approach to AI-based predictive mainten
 
 The project combines Python-based model development, C-based classification, and ESP32 simulation using Wokwi. It also includes exploratory analysis of the NASA IMS bearing vibration dataset.
 
+## Final Project Report
+
+**[Read the Final Project Report](FINAL_PROJECT_REPORT.md)** for the complete methodology, model evaluation, Python/C verification, Wokwi simulation results, NASA IMS investigation, limitations, and future work.
+
+For detailed experimental metrics and additional analysis, see [benchmark_report.md](benchmark_report.md).
+
 ## Objectives
 
 - Generate and evaluate a synthetic motor vibration dataset.
